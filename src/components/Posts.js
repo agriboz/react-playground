@@ -2,14 +2,31 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { requestPosts } from '../actions/postsActions'
+import { requestPosts } from '../actions/postsActions';
+
+import Table, {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableFooter,
+  TablePagination,
+} from 'material-ui/Table';
+import Paper from 'material-ui/Paper';
 
 class Posts extends Component {
+  state = {
+    page: 0,
+    rowsPerPage: 10,
+  };
+  test = (event, page) => {
+    this.setState({ page });
+  };
   renderPosts(post, index) {
     return (
-      <div key={index}>
-        <Link to={`/posts/${post.id}`}>{post.title}</Link>
-      </div>
+      <TableRow key={post.id}>
+        <TableCell>{post.title}</TableCell>
+      </TableRow>
     );
   }
   componentWillMount() {
@@ -17,11 +34,33 @@ class Posts extends Component {
   }
   render() {
     const { posts } = this.props;
+    const { rowsPerPage, page } = this.state;
 
     return (
-      <div className="App">
-       {posts.map(this.renderPosts)}
-     </div>
+      <Paper className="App">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {posts
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map(this.renderPosts)}
+          </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                count={posts.length}
+                onChangePage={this.test}
+                rowsPerPage={rowsPerPage}
+                page={page}
+              />
+            </TableRow>
+          </TableFooter>
+        </Table>
+      </Paper>
     );
   }
 }
@@ -40,4 +79,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {requestPosts})(Posts);
+export default connect(mapStateToProps, { requestPosts })(Posts);

@@ -7,7 +7,7 @@ import { rootReducer } from './reducers';
 
 import { browserHistory } from 'react-router';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
-import { syncHistoryWithStore } from 'react-router-redux';
+import { syncHistoryWithStore, ConnectedRouter } from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import createSagaMiddleware from 'redux-saga';
