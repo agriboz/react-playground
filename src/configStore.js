@@ -1,13 +1,11 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 import { rootReducer } from './reducers';
 
-import { browserHistory } from 'react-router';
-import { syncHistoryWithStore, ConnectedRouter } from 'react-router-redux';
+import { syncHistoryWithStore } from 'react-router-redux';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import createSagaMiddleware from 'redux-saga';
 import watchAll from './sagas'
-
 
 const sagaMiddleWare = createSagaMiddleware();
 const devTools = window.devToolsExtension ? window.devToolsExtension() : f => f;

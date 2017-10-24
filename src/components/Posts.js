@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { requestPosts } from '../actions/postsActions';
+import { changeTablePage } from '../actions/uiActions';
 
 import Table, {
   TableBody,
@@ -15,12 +15,9 @@ import Table, {
 import Paper from 'material-ui/Paper';
 
 class Posts extends Component {
-  state = {
-    page: 0,
-    rowsPerPage: 10,
-  };
-  test = (event, page) => {
-    this.setState({ page });
+
+  handleChange = (event, page) => {
+    this.props.changeTablePage(page);
   };
   renderPosts(post, index) {
     return (
@@ -33,8 +30,7 @@ class Posts extends Component {
     this.props.requestPosts();
   }
   render() {
-    const { posts } = this.props;
-    const { rowsPerPage, page } = this.state;
+    const { posts, ui } = this.props;
 
     return (
       <Paper className="App">
@@ -46,16 +42,19 @@ class Posts extends Component {
           </TableHead>
           <TableBody>
             {posts
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .slice(
+                ui.page * ui.rowsPerPage,
+                ui.page * ui.rowsPerPage + ui.rowsPerPage
+              )
               .map(this.renderPosts)}
           </TableBody>
           <TableFooter>
             <TableRow>
               <TablePagination
                 count={posts.length}
-                onChangePage={this.test}
-                rowsPerPage={rowsPerPage}
-                page={page}
+                onChangePage={this.handleChange}
+                rowsPerPage={ui.rowsPerPage}
+                page={ui.page}
               />
             </TableRow>
           </TableFooter>
@@ -65,18 +64,14 @@ class Posts extends Component {
   }
 }
 
-/* function mapDispatchToProps(dispatch) {
-  return {
-    requestPosts: () => {
-      dispatch(actions.requestPosts());
-    },
-  };
-} */
-
 function mapStateToProps(state) {
+  console.log(state);
   return {
     posts: state.posts,
+    ui: state.ui,
   };
 }
 
-export default connect(mapStateToProps, { requestPosts })(Posts);
+export default connect(mapStateToProps, { requestPosts, changeTablePage })(
+  Posts
+);

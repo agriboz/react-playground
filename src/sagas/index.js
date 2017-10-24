@@ -1,4 +1,4 @@
-import { takeEvery, all, fork } from 'redux-saga/effects';
+import { takeEvery, all } from 'redux-saga/effects';
 import { fetchPosts } from './posts';
 import { fetchPost } from './post';
 

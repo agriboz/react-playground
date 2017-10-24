@@ -1,8 +1,6 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { push } from 'react-router-redux'
 
 import {
-  requestPost,
   requestPostSucceeded,
   requestPostFailed
 } from '../actions/postActions'
