@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestPosts } from '../actions/postsActions';
-import { changeTablePage } from '../actions/uiActions';
+import { changeTablePage, changeRowPerPage } from '../actions/uiActions';
 
 import Table, {
   TableBody,
@@ -18,9 +18,14 @@ import Paper from 'material-ui/Paper';
 import Button from 'material-ui/Button';
 
 class Posts extends Component {
-  handleChange = (event, page) => {
+  handleChangePage = (event, page) => {
     this.props.changeTablePage(page);
   };
+
+  handleChangeRowsPerPage = (event) => {
+    this.props.changeRowPerPage(event.target.value);
+  };
+
   renderPosts(post, index) {
     return (
       <TableRow key={post.id}>
@@ -65,7 +70,8 @@ class Posts extends Component {
               <TableRow>
                 <TablePagination
                   count={posts.length}
-                  onChangePage={this.handleChange}
+                  onChangePage={this.handleChangePage}
+                  onChangeRowsPerPage={this.handleChangeRowsPerPage}
                   rowsPerPage={ui.rowsPerPage}
                   page={ui.page}
                 />
@@ -86,6 +92,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { requestPosts, changeTablePage })(
+export default connect(mapStateToProps, { requestPosts, changeTablePage, changeRowPerPage })(
   Posts
 );

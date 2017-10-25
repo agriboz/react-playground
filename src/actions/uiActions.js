@@ -6,3 +6,10 @@ export function changeTablePage(page) {
     page
   }
 }
+
+export function changeRowPerPage(rowsPerPage) {
+  return {
+    type: types.CHANGE_ROW_PER_PAGE,
+    rowsPerPage
+  }
+}
