@@ -22,7 +22,7 @@ class Posts extends Component {
     this.props.changeTablePage(page);
   };
 
-  handleChangeRowsPerPage = (event) => {
+  handleChangeRowsPerPage = event => {
     this.props.changeRowPerPage(event.target.value);
   };
 
@@ -45,40 +45,44 @@ class Posts extends Component {
   }
   render() {
     const { posts, ui } = this.props;
-
+    console.log(this.props);
     return (
       <Grid item xs>
-        <Paper className="App">
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Title</TableCell>
-                <TableCell>Body</TableCell>
-                <TableCell>Detail</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {posts
-                .slice(
-                  ui.page * ui.rowsPerPage,
-                  ui.page * ui.rowsPerPage + ui.rowsPerPage
-                )
-                .map(this.renderPosts)}
-            </TableBody>
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  count={posts.length}
-                  onChangePage={this.handleChangePage}
-                  onChangeRowsPerPage={this.handleChangeRowsPerPage}
-                  rowsPerPage={ui.rowsPerPage}
-                  page={ui.page}
-                />
-              </TableRow>
-            </TableFooter>
-          </Table>
-        </Paper>
+        {posts.isFetching ? (
+          <h2>loading</h2>
+        ) : (
+          <Paper className="App">
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Title</TableCell>
+                  <TableCell>Body</TableCell>
+                  <TableCell>Detail</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {posts.posts
+                  .slice(
+                    ui.page * ui.rowsPerPage,
+                    ui.page * ui.rowsPerPage + ui.rowsPerPage
+                  )
+                  .map(this.renderPosts)}
+              </TableBody>
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    count={posts.length}
+                    onChangePage={this.handleChangePage}
+                    onChangeRowsPerPage={this.handleChangeRowsPerPage}
+                    rowsPerPage={ui.rowsPerPage}
+                    page={ui.page}
+                  />
+                </TableRow>
+              </TableFooter>
+            </Table>
+          </Paper>
+        )}
       </Grid>
     );
   }
@@ -92,6 +96,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { requestPosts, changeTablePage, changeRowPerPage })(
-  Posts
-);
+export default connect(mapStateToProps, {
+  requestPosts,
+  changeTablePage,
+  changeRowPerPage,
+})(Posts);
