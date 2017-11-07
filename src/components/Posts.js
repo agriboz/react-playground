@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { withRouter, Route, Switch } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestPosts } from '../actions/postsActions';
 import { changeTablePage, changeRowPerPage } from '../actions/uiActions';
+import Post from './Post';
+import PostCreate from './PostCreate'
 
 import Table, {
   TableBody,
@@ -30,8 +33,8 @@ class Posts extends Component {
     return (
       <TableRow key={post.id}>
         <TableCell>{post.id}</TableCell>
-        <TableCell>{post.title}</TableCell>
-        <TableCell>{post.body}</TableCell>
+        <TableCell>{post.first_name}</TableCell>
+        <TableCell>{post.last_name}</TableCell>
         <TableCell>
           <Link to={`posts/${post.id}`}>
             <Button color="primary">Detail</Button>
@@ -83,13 +86,18 @@ class Posts extends Component {
             </Table>
           </Paper>
         )}
+        <div className="content">
+          <Switch>
+            <Route path="/posts/:postid" component={Post} />
+            <Route path="/posts/new" component={PostCreate} />
+          </Switch>
+        </div>
       </Grid>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     posts: state.posts,
     ui: state.ui,

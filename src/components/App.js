@@ -1,13 +1,9 @@
 import React, { Component } from 'react';
-import Grid from 'material-ui/Grid';
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
   render() {
-    return (
-      <div>
-
-      </div>
-    );
+    return <div>{this.props.children}</div>;
   }
 }
 

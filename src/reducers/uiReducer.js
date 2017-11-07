@@ -6,7 +6,6 @@ const initialState = {
 };
 
 export const uiReducer = (state = initialState, action) => {
-  console.log('wright place', state);
   switch (action.type) {
     case types.SET_TABLE_PAGE:
       return state.page;

@@ -1,23 +1,29 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { requestPost } from '../actions/postActions'
+import { requestPost } from '../actions/postActions';
 
 class Post extends Component {
-  componentWillMount() {
-    const postid = this.props.match.params.postid
-    this.props.requestPost(postid)
+  componentWillMount(ownProps) {
+    const postid = this.props.match.params.postid;
+    this.props.requestPost(postid);
+  }
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    console.log(nextProps);
   }
 
   render() {
-    const post = this.props
+    const post = this.props;
     return (
       <div>
-        <h1>{post.userId} - {post.title}</h1>
-        <p>{post.body}</p>
+        <h1>
+          {post.last_name} - {post.first_name}
+        </h1>
+        <p>{post.email}</p>
       </div>
-    )
+    );
   }
 }
 
-export default connect(state => state.post, { requestPost })(Post)
+export default connect(state => state.post, { requestPost })(Post);

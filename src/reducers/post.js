@@ -1,7 +1,6 @@
 import * as types from '../actions/actionTypes'
 
 export const post = (state = {}, action) => {
-  console.log(action);
   switch (action.type) {
     case types.REQUEST_POST:
       return state;

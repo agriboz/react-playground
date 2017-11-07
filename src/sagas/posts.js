@@ -5,7 +5,7 @@ import {
 } from '../actions/postsActions';
 import { REQUEST_POSTS } from '../actions/actionTypes';
 
-const API_ENDPOINT = 'http://jsonplaceholder.typicode.com/posts/';
+const API_ENDPOINT = 'http://localhost:3001/posts/';
 
 export function fetchPostsFromServer() {
   return fetch(API_ENDPOINT).then(res => res.json());

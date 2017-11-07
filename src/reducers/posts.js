@@ -4,7 +4,6 @@ export const posts = (state = {
   isFetching: true,
   posts: []
 }, action) => {
-  console.log(action);
   switch (action.type) {
     case types.REQUEST_POSTS:
       return {
