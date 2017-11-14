@@ -87,7 +87,7 @@ class PostCreate extends Component {
 
 
 const mapStateToProps = state => ({
-  createPost: selector(state, 'createPost'),
+  createPost: state.createPost
 });
 
 const selector = formValueSelector('PostCreate');
