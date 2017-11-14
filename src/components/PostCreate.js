@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { createPostSucceeded } from '../actions/createPostAction';
+import {
+  createPostSucceeded,
+  createPostRequest,
+} from '../actions/createPostAction';
 
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 
@@ -47,12 +50,11 @@ const renderTextField = ({
 
 class PostCreate extends Component {
   submit = values => {
-    this.props.createPostSucceeded(values);
-    console.log(values);
+    this.props.createPostRequest(values)
   };
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { handleSubmit, pristine, submitting } = this.props;
 
     return (
       <form onSubmit={handleSubmit(this.submit)}>
@@ -62,7 +64,11 @@ class PostCreate extends Component {
             component={renderTextField}
             label="First Name"
           />
-
+          <Field
+            name="last_name"
+            component={renderTextField}
+            label="Last Name"
+          />
         </div>
         <div>
           <Button
@@ -79,15 +85,24 @@ class PostCreate extends Component {
   }
 }
 
+
 const mapStateToProps = state => ({
-  firstName: selector(state, 'firstName'),
+  createPost: selector(state, 'createPost'),
 });
 
 const selector = formValueSelector('PostCreate');
 
 PostCreate = reduxForm({
   form: 'PostCreate',
+  /* onSubmit: (values, dispatch) => {
+    return new Promise((resolve, reject) => {
+      dispatch(createPostRequest(values));
+    });
+  }, */
   validate,
 })(PostCreate);
 
-export default connect(mapStateToProps, { createPostSucceeded })(PostCreate);
+export default connect(mapStateToProps, {
+  createPostRequest,
+  createPostSucceeded,
+})(PostCreate);

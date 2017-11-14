@@ -9,10 +9,6 @@ class Post extends Component {
     this.props.requestPost(postid);
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    console.log(nextProps);
-  }
-
   render() {
     const post = this.props;
     return (

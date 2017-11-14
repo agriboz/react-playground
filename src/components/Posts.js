@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -48,7 +48,7 @@ class Posts extends Component {
   }
   render() {
     const { posts, ui } = this.props;
-    console.log(this.props);
+
     return (
       <Grid item xs>
         {posts.isFetching ? (

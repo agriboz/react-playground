@@ -5,7 +5,6 @@ import { Route, Switch } from 'react-router-dom';
 import { history } from '../configStore';
 import { Provider } from 'react-redux';
 
-import App from './App';
 import Posts from './Posts';
 import Post from './Post';
 import PostCreate from './PostCreate';
